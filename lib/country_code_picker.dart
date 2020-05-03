@@ -226,6 +226,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
     Navigator.push(
         context,
         MaterialPageRoute(
+          fullscreenDialog: true,
           builder: (_) => SelectionDialog(
             widget.title,
             elements,
