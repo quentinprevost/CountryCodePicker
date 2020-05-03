@@ -50,7 +50,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
         width: widget.size?.width ?? MediaQuery.of(context).size.width,
         height: widget.size?.height ?? MediaQuery.of(context).size.height * 0.7,
         child: Scaffold(
+
           appBar: AppBar(
+            leading: Navigator.canPop(context) ? Icon(Icons.chevron_left) : Container(),
             elevation: 0,
             backgroundColor: Colors.transparent,
             title: Text(widget.title),
