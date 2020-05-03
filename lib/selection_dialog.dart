@@ -45,62 +45,69 @@ class _SelectionDialogState extends State<SelectionDialog> {
   /// this is useful for filtering purpose
   List<CountryCode> filteredElements;
 
-
   @override
   Widget build(BuildContext context) => Container(
         width: widget.size?.width ?? MediaQuery.of(context).size.width,
         height: widget.size?.height ?? MediaQuery.of(context).size.height * 0.7,
         child: Scaffold(
-resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: Text(widget.title),
-          ),
-          body: Column(children: [
-            if (!widget.hideSearch)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextField(
-                  style: widget.searchStyle,
-                  decoration: widget.searchDecoration,
-                  onChanged: _filterElements,
-                ),
-              ),
-           Expanded(child: Padding(padding: EdgeInsets.only(top: 12), child:  ListView(
-             children: [
-               widget.favoriteElements.isEmpty
-                   ? const DecoratedBox(decoration: BoxDecoration())
-                   : Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   ...widget.favoriteElements.map(
-                         (f) => SimpleDialogOption(
-                       child: _buildOption(f),
-                       onPressed: () {
-                         _selectItem(f);
-                       },
-                     ),
-                   ),
-                   const Divider(),
-                 ],
-               ),
-               if (filteredElements.isEmpty)
-                 _buildEmptySearchWidget(context)
-               else
-                 ...filteredElements.map(
-                       (e) => SimpleDialogOption(
-                     key: Key(e.toLongString()),
-                     child: _buildOption(e),
-                     onPressed: () {
-                       _selectItem(e);
-                     },
-                   ),
-                 ),
-             ],
-           ) ,))
-          ])
-        ),
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              title: Text(widget.title),
+            ),
+            body: NotificationListener<UserScrollNotification>(
+              onNotification: (_) {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Column(children: [
+                if (!widget.hideSearch)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: TextField(
+                      style: widget.searchStyle,
+                      decoration: widget.searchDecoration,
+                      onChanged: _filterElements,
+                    ),
+                  ),
+                Expanded(
+                    child: Padding(
+                  padding: EdgeInsets.only(top: 12),
+                  child: ListView(
+                    children: [
+                      widget.favoriteElements.isEmpty
+                          ? const DecoratedBox(decoration: BoxDecoration())
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...widget.favoriteElements.map(
+                                  (f) => SimpleDialogOption(
+                                    child: _buildOption(f),
+                                    onPressed: () {
+                                      _selectItem(f);
+                                    },
+                                  ),
+                                ),
+                                const Divider(),
+                              ],
+                            ),
+                      if (filteredElements.isEmpty)
+                        _buildEmptySearchWidget(context)
+                      else
+                        ...filteredElements.map(
+                          (e) => SimpleDialogOption(
+                            key: Key(e.toLongString()),
+                            child: _buildOption(e),
+                            onPressed: () {
+                              _selectItem(e);
+                            },
+                          ),
+                        ),
+                    ],
+                  ),
+                ))
+              ]),
+            )),
       );
 
   Widget _buildOption(CountryCode e) {
