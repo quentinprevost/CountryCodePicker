@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
         Locale('fr'),
         Locale('es'),
       ],
+      theme: ThemeData.dark(),
       localizationsDelegates: [
         CountryLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
