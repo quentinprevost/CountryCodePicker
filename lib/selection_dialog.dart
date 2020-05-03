@@ -98,7 +98,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                    ),
                  ),
              ],
-           ), ,))
+           ) ,))
           ])
         ),
       );
