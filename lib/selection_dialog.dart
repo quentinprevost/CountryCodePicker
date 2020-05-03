@@ -67,7 +67,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                   onChanged: _filterElements,
                 ),
               ),
-           Expanded(child:  ListView(
+           Expanded(child: Padding(padding: EdgeInsets.only(top: 12), child:  ListView(
              children: [
                widget.favoriteElements.isEmpty
                    ? const DecoratedBox(decoration: BoxDecoration())
@@ -98,7 +98,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                    ),
                  ),
              ],
-           ),)
+           ), ,))
           ])
         ),
       );
