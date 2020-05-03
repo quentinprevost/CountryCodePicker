@@ -45,6 +45,7 @@ class CountryCodePicker extends StatefulWidget {
   final bool showFlagMain;
 
   final bool showFlagDialog;
+  final String title;
 
   /// Width of the flag images
   final double flagWidth;
@@ -56,6 +57,7 @@ class CountryCodePicker extends StatefulWidget {
   final bool hideSearch;
 
   CountryCodePicker({
+    this.title = '',
     this.onChanged,
     this.onInit,
     this.initialSelection,
@@ -221,22 +223,24 @@ class CountryCodePickerState extends State<CountryCodePicker> {
   }
 
   void showCountryCodePickerDialog() {
-    showDialog(
-      context: context,
-      builder: (_) => SelectionDialog(
-        elements,
-        favoriteElements,
-        showCountryOnly: widget.showCountryOnly,
-        emptySearchBuilder: widget.emptySearchBuilder,
-        searchDecoration: widget.searchDecoration,
-        searchStyle: widget.searchStyle,
-        textStyle: widget.dialogTextStyle,
-        showFlag: widget.showFlag || (widget.showFlagDialog == true),
-        flagWidth: widget.flagWidth,
-        size: widget.dialogSize,
-        hideSearch: widget.hideSearch,
-      ),
-    ).then((e) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => SelectionDialog(
+            widget.title,
+            elements,
+            favoriteElements,
+            showCountryOnly: widget.showCountryOnly,
+            emptySearchBuilder: widget.emptySearchBuilder,
+            searchDecoration: widget.searchDecoration,
+            searchStyle: widget.searchStyle,
+            textStyle: widget.dialogTextStyle,
+            showFlag: widget.showFlag || (widget.showFlagDialog == true),
+            flagWidth: widget.flagWidth,
+            size: widget.dialogSize,
+            hideSearch: widget.hideSearch,
+          ),
+        )).then((e) {
       if (e != null) {
         setState(() {
           selectedItem = e;
