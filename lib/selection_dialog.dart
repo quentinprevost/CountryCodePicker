@@ -61,15 +61,15 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               child: Column(children: [
-                if (!widget.hideSearch)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: TextField(
-                      style: widget.searchStyle,
-                      decoration: widget.searchDecoration,
-                      onChanged: _filterElements,
-                    ),
+                if (!widget.hideSearch) Divider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: TextField(
+                    style: widget.searchStyle,
+                    decoration: widget.searchDecoration,
+                    onChanged: _filterElements,
                   ),
+                ),
                 Expanded(
                     child: Padding(
                   padding: EdgeInsets.only(top: 12),
@@ -81,12 +81,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ...widget.favoriteElements.map(
-                                  (f) => SimpleDialogOption(
-                                    child: _buildOption(f),
-                                    onPressed: () {
-                                      _selectItem(f);
-                                    },
-                                  ),
+                                  (f) => _buildOption(f),
                                 ),
                                 const Divider(),
                               ],
@@ -95,13 +90,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                         _buildEmptySearchWidget(context)
                       else
                         ...filteredElements.map(
-                          (e) => SimpleDialogOption(
-                            key: Key(e.toLongString()),
-                            child: _buildOption(e),
-                            onPressed: () {
-                              _selectItem(e);
-                            },
-                          ),
+                          (e) => _buildOption(e),
                         ),
                     ],
                   ),
@@ -111,33 +100,18 @@ class _SelectionDialogState extends State<SelectionDialog> {
       );
 
   Widget _buildOption(CountryCode e) {
-    return Container(
-      width: 400,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          if (widget.showFlag)
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Image.asset(
-                  e.flagUri,
-                  package: 'country_code_picker',
-                  width: widget.flagWidth,
-                ),
-              ),
-            ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              widget.showCountryOnly
-                  ? e.toCountryStringOnly()
-                  : e.toLongString(),
-              overflow: TextOverflow.fade,
-              style: widget.textStyle,
-            ),
-          ),
-        ],
+    return ListTile(
+      key: Key(e.toLongString()),
+      leading: Image.asset(
+        e.flagUri,
+        package: 'country_code_picker',
+        width: widget.flagWidth,
+      ),
+      onTap: () => _selectItem(e),
+      title: Text(
+        widget.showCountryOnly ? e.toCountryStringOnly() : e.toLongString(),
+        overflow: TextOverflow.fade,
+        style: widget.textStyle,
       ),
     );
   }
