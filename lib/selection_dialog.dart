@@ -52,7 +52,6 @@ class _SelectionDialogState extends State<SelectionDialog> {
         child: Scaffold(
 
           appBar: AppBar(
-            leading: Navigator.canPop(context) ? Icon(Icons.chevron_left) : Container(),
             elevation: 0,
             backgroundColor: Colors.transparent,
             title: Text(widget.title),
