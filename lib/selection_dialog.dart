@@ -65,6 +65,8 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextField(
+                    autocorrect: false,
+                    enableSuggestions: false,
                     style: widget.searchStyle,
                     decoration: widget.searchDecoration,
                     onChanged: _filterElements,

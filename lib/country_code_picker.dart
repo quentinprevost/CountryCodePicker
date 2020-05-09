@@ -21,7 +21,6 @@ class CountryCodePicker extends StatefulWidget {
   final WidgetBuilder emptySearchBuilder;
   final Function(CountryCode) builder;
   final bool enabled;
-  final TextEditingController textEditingController;
   final TextOverflow textOverflow;
 
   /// the size of the selection dialog
@@ -61,7 +60,6 @@ class CountryCodePicker extends StatefulWidget {
     this.title = '',
     this.onChanged,
     this.onInit,
-    this.textEditingController,
     this.initialSelection,
     this.favorite = const [],
     this.textStyle,
