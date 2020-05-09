@@ -231,7 +231,6 @@ class CountryCodePickerState extends State<CountryCodePicker> {
           fullscreenDialog: true,
           builder: (_) => SelectionDialog(
             widget.title,
-            widget.textEditingController,
             elements,
             favoriteElements,
             showCountryOnly: widget.showCountryOnly,
