@@ -14,12 +14,14 @@ class SelectionDialog extends StatefulWidget {
   final Size size;
   final bool hideSearch;
   final String title;
+  final TextEditingController controller;
 
   /// elements passed as favorite
   final List<CountryCode> favoriteElements;
 
   SelectionDialog(
     this.title,
+    this.controller,
     this.elements,
     this.favoriteElements, {
     Key key,
@@ -65,6 +67,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextField(
+                    controller: widget.controller,
                     style: widget.searchStyle,
                     decoration: widget.searchDecoration,
                     onChanged: _filterElements,
@@ -130,6 +133,12 @@ class _SelectionDialogState extends State<SelectionDialog> {
   void initState() {
     filteredElements = widget.elements;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
   }
 
   void _filterElements(String s) {
