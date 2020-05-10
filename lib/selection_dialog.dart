@@ -56,8 +56,11 @@ class _SelectionDialogState extends State<SelectionDialog> {
               backgroundColor: Colors.transparent,
               title: Text(widget.title),
             ),
-            body: NotificationListener<UserScrollNotification>(
-              onNotification: (_) {
+            body: NotificationListener<ScrollStartNotification>(
+              onNotification: (x) {
+                if (x.dragDetails == null) {
+                  return;
+                }
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               child: Column(children: [
